@@ -7,8 +7,10 @@ import {
   BeforeInsert,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import { Post } from 'src/posts/entities/post.entity';
 @ObjectType()
 @Entity()
 export class User {
@@ -38,6 +40,10 @@ export class User {
   @Field()
   @Column({ default: true })
   isActive: boolean;
+
+  @Field((type) => Post, { nullable: true })
+  @OneToMany(() => Post, (post: Post) => post.author)
+  posts: Post[];
 
   @Field()
   @CreateDateColumn()
