@@ -2,10 +2,12 @@ import { ObjectType, Field, ID } from '@nestjs/graphql';
 import {
   Column,
   CreateDateColumn,
+  Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
+@Entity()
 @ObjectType()
 export class Tag {
   @Field(() => ID)

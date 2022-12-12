@@ -7,6 +7,8 @@ import { ConfigModule } from '@nestjs/config';
 import { PostsModule } from './posts/posts.module';
 import { TagsModule } from './tags/tags.module';
 import { User } from './users/entities/user.entity';
+import { Tag } from './tags/entities/tag.entity';
+import { Post } from './posts/entities/post.entity';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -18,15 +20,15 @@ import { User } from './users/entities/user.entity';
       type: 'postgres',
       host: process.env.DB_HOST,
       port: parseInt(process.env.DB_PORT),
-      username:process.env.POSTGRES_USER,
+      username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      entities:[User],
+      entities: [Tag, Post, User],
       synchronize: true,
     }),
-    UsersModule,
-    PostsModule,
     TagsModule,
+    PostsModule,
+    UsersModule,
   ],
 })
 export class AppModule {}

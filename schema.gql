@@ -2,31 +2,93 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Tag {
+  id: ID!
+  tag: String!
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Post {
+  id: ID!
+  content: String!
+  tags: [Tag!]
+  author: User!
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
 type User {
   id: ID!
+  email: String!
   firstName: String!
   lastName: String!
+  password: String!
   isActive: Boolean!
+  posts: Post
+  created_at: DateTime!
+  updated_at: DateTime!
 }
 
 type Query {
+  tags: [Tag!]!
+  tag(id: Int!): Tag!
+  posts: [Post!]!
+  post(id: Int!): Post!
   users: [User!]!
   user(id: Int!): User!
 }
 
 type Mutation {
+  createTag(createTagInput: CreateTagInput!): Tag!
+  updateTag(updateTagInput: UpdateTagInput!): Tag!
+  removeTag(id: Int!): Tag!
+  createPost(createPostInput: CreatePostInput!): Post!
+  updatePost(updatePostInput: UpdatePostInput!): Post!
+  removePost(id: Int!): Post!
   createUser(createUserInput: CreateUserInput!): User!
   updateUser(updateUserInput: UpdateUserInput!): User!
   removeUser(id: Int!): String!
 }
 
+input CreateTagInput {
+  tag: String!
+}
+
+input UpdateTagInput {
+  tag: String!
+  id: ID!
+}
+
+input CreatePostInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdatePostInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
 input CreateUserInput {
   firstName: String!
   lastName: String!
+  email: String!
+  password: String!
+  confirm: String!
 }
 
 input UpdateUserInput {
   firstName: String
   lastName: String
+  email: String
+  password: String
+  confirm: String
   id: Int!
 }

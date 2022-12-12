@@ -1,9 +1,10 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
-import { Tag } from 'src/tags/entities/tag.entity';
-import { User } from 'src/users/entities/user.entity';
+import { Tag } from '../../tags/entities/tag.entity';
+import { User } from '../../users/entities/user.entity';
 import {
   Column,
   CreateDateColumn,
+  Entity,
   JoinTable,
   ManyToMany,
   ManyToOne,
@@ -11,6 +12,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+@Entity()
 @ObjectType()
 export class Post {
   @Field(() => ID)
@@ -21,7 +23,7 @@ export class Post {
   @Column()
   content: string;
 
-  @Field((type) => Tag, { nullable: true })
+  @Field((type) => [Tag], { nullable: true })
   @ManyToMany(() => Tag, (tag) => tag.tag, {
     cascade: true,
   })

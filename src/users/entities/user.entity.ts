@@ -10,7 +10,7 @@ import {
   OneToMany,
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
-import { Post } from 'src/posts/entities/post.entity';
+import { Post } from '../../posts/entities/post.entity';
 @ObjectType()
 @Entity()
 export class User {

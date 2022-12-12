@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -33,21 +33,25 @@ export class UsersService {
   }
 
   async update(id: number, updateUserInput: UpdateUserInput) {
-    return this.usersRepository.createQueryBuilder()
-    .update()
-    .set({
-      ...updateUserInput
-    })
-    .where('id = :id', { id })
-    .execute()
+    return this.usersRepository
+      .createQueryBuilder()
+      .update()
+      .set({
+        ...updateUserInput,
+      })
+      .where('id = :id', { id })
+      .returning('*')
+      .execute()
+      .then((response) => response.raw[0]);
   }
 
   remove(id: number) {
     return this.usersRepository
-    .createQueryBuilder()
-    .delete()
-    .from(User)
-    .where('id = :id', { id })
-    .execute()
+      .createQueryBuilder()
+      .delete()
+      .from(User)
+      .where('id = :id', { id })
+      .execute()
+      .then((response) => response.raw[0]);
   }
 }
