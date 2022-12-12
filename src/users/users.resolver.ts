@@ -35,12 +35,7 @@ export class UsersResolver {
   }
 
   @Mutation(() => String)
-  async removeUser(@Args('id', { type: () => Int }) id: number) {
-    try {
-      const res = await this.usersService.remove(id);
-      return res;
-    } catch (error) {
-      return error;
-    }
+  removeUser(@Args('id', { type: () => Int }) id: number) {
+    return this.usersService.remove(id);
   }
 }
