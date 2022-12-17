@@ -9,6 +9,7 @@ import { TagsModule } from './tags/tags.module';
 import { User } from './users/entities/user.entity';
 import { Tag } from './tags/entities/tag.entity';
 import { Post } from './posts/entities/post.entity';
+// TODO: when call a query related models not retriving.
 @Module({
   imports: [
     ConfigModule.forRoot(),

@@ -15,6 +15,8 @@ export class PostsResolver {
     private readonly tagsService: TagsService,
     private readonly usersService: UsersService,
   ) {}
+
+  // TODO: When create a post tags not mapping for all tags.
   @Mutation(() => Post)
   async createPost(@Args('createPostInput') createPostInput: CreatePostInput) {
     let tags: Tag[] = [];
