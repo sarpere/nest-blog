@@ -32,7 +32,7 @@ export class Post {
 
   @Field((type) => User, { nullable: false })
   @ManyToOne(() => User, (author: User) => author.posts)
-  public author: User;
+  author: User;
 
   @Field()
   @CreateDateColumn()

@@ -66,13 +66,15 @@ input UpdateTagInput {
 }
 
 input CreatePostInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  content: String!
+  tags: [CreateTagInput!]!
+  UserId: Int!
 }
 
 input UpdatePostInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  content: String
+  tags: [CreateTagInput!]
+  UserId: Int
   id: Int!
 }
 

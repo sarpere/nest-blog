@@ -10,7 +10,7 @@ export class TagsService {
   constructor(
     @InjectRepository(Tag)
     private readonly tagRepository: Repository<Tag>,
-  ){}
+  ) {}
   create(createTagInput: CreateTagInput) {
     const tag = new Tag();
     tag.tag = createTagInput.tag;
@@ -24,27 +24,37 @@ export class TagsService {
   findOne(id: number) {
     return this.tagRepository.findOne({
       where: {
-        id
-      }
+        id,
+      },
     });
   }
 
+  async isExist(name: string) {
+    const tag = this.tagRepository.findOne({
+      where: {
+        tag: name,
+      },
+    });
+    return tag;
+  }
+
   update(id: number, updateTagInput: UpdateTagInput) {
-    return this.tagRepository.createQueryBuilder()
-    .update()
-    .set({
-      ...updateTagInput
-    })
-    .where('id = :id', {id})
-    .execute();
+    return this.tagRepository
+      .createQueryBuilder()
+      .update()
+      .set({
+        ...updateTagInput,
+      })
+      .where('id = :id', { id })
+      .execute();
   }
 
   remove(id: number) {
     return this.tagRepository
-    .createQueryBuilder()
-    .delete()
-    .from(Tag)
-    .where('id = :id', { id })
-    .execute()
+      .createQueryBuilder()
+      .delete()
+      .from(Tag)
+      .where('id = :id', { id })
+      .execute();
   }
 }
