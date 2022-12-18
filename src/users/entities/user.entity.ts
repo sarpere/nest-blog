@@ -41,7 +41,7 @@ export class User {
 
   @Field((type) => [Post], { nullable: true })
   @OneToMany(() => Post, (post: Post) => post.author)
-  posts: Post[];
+  posts: Promise<Post[]>;
 
   @Field()
   @CreateDateColumn()

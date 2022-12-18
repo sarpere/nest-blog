@@ -19,20 +19,21 @@ export class Post {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Field()
   @Column()
+  @Field()
   content: string;
 
   @Field((type) => [Tag], { nullable: true })
-  @ManyToMany(() => Tag, (tag) => tag.tag, {
+  @ManyToMany(() => Tag, (tags) => tags.tag, {
     cascade: true,
+    lazy: true,
   })
   @JoinTable()
-  tags: Tag[];
+  tags: Promise<Tag[]>;
 
   @Field((type) => User, { nullable: false })
-  @ManyToOne(() => User, (author: User) => author.posts)
-  author: User;
+  @ManyToOne(() => User, (author: User) => author.posts, { lazy: true })
+  author: Promise<User>;
 
   @Field()
   @CreateDateColumn()

@@ -13,22 +13,21 @@ export class PostsService {
     @InjectRepository(Post)
     private readonly PostRepository: Repository<Post>,
   ) {}
-  create(createPostInput: CreatePostInput, author: User, tags: Tag[]) {
+  async create(createPostInput: CreatePostInput, author: User, tags: Tag[]) {
     const post = new Post();
-    post.author = author;
     post.content = createPostInput.content;
-    post.tags = tags;
-    return this.PostRepository.save(post);
+    post.author = Promise.resolve(author);
+    post.tags = Promise.resolve(tags);
+
+    return await this.PostRepository.save(post);
   }
 
   findAll() {
-    return this.PostRepository.find({
-      relations: { tags: true, author: true },
-    });
+    return this.PostRepository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} post`;
+    return this.PostRepository.findOne({ where: { id } });
   }
 
   update(id: number, updatePostInput: UpdatePostInput) {

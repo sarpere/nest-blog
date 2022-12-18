@@ -21,9 +21,7 @@ export class UsersService {
   }
 
   async findAll() {
-    return this.usersRepository.find({
-      relations: { posts: { tags: true } },
-    });
+    return this.usersRepository.find();
   }
 
   findOne(id: number) {
