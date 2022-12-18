@@ -22,7 +22,9 @@ export class PostsService {
   }
 
   findAll() {
-    return this.PostRepository.find();
+    return this.PostRepository.find({
+      relations: { tags: true, author: true },
+    });
   }
 
   findOne(id: number) {

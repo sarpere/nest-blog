@@ -30,7 +30,7 @@ type User {
   lastName: String!
   password: String!
   isActive: Boolean!
-  posts: Post
+  posts: [Post!]
   created_at: DateTime!
   updated_at: DateTime!
 }

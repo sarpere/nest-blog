@@ -36,12 +36,10 @@ export class User {
   password: string;
 
   @Field()
-  @Column()
-  @Field()
   @Column({ default: true })
   isActive: boolean;
 
-  @Field((type) => Post, { nullable: true })
+  @Field((type) => [Post], { nullable: true })
   @OneToMany(() => Post, (post: Post) => post.author)
   posts: Post[];
 

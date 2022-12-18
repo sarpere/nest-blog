@@ -20,8 +20,10 @@ export class UsersService {
     return this.usersRepository.save(user);
   }
 
-  findAll() {
-    return this.usersRepository.find();
+  async findAll() {
+    return this.usersRepository.find({
+      relations: { posts: { tags: true } },
+    });
   }
 
   findOne(id: number) {
