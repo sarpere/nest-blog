@@ -30,7 +30,6 @@ export class User {
   @Column()
   lastName: string;
 
-  @Field()
   @Column()
   @Length(8, 30)
   password: string;
