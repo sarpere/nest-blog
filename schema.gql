@@ -34,47 +34,31 @@ type User {
   updated_at: DateTime!
 }
 
+type LoggedUserOutput {
+  """Generated access_token of the user"""
+  access_token: String!
+}
+
 type Query {
-  tags: [Tag!]!
-  tag(id: Int!): Tag!
-  posts: [Post!]!
-  post(id: Int!): Post!
   users: [User!]!
   user(id: Int!): User!
+  posts: [Post!]!
+  post(id: Int!): Post!
+  tags: [Tag!]!
+  tag(id: Int!): Tag!
 }
 
 type Mutation {
-  createTag(createTagInput: CreateTagInput!): Tag!
-  updateTag(updateTagInput: UpdateTagInput!): Tag!
-  removeTag(id: Int!): Tag!
-  createPost(createPostInput: CreatePostInput!): Post!
-  updatePost(updatePostInput: UpdatePostInput!): Post!
-  removePost(id: Int!): Post!
   createUser(createUserInput: CreateUserInput!): User!
   updateUser(updateUserInput: UpdateUserInput!): User!
   removeUser(id: Int!): String!
-}
-
-input CreateTagInput {
-  tag: String!
-}
-
-input UpdateTagInput {
-  tag: String!
-  id: ID!
-}
-
-input CreatePostInput {
-  content: String!
-  tags: [CreateTagInput!]!
-  UserId: Int!
-}
-
-input UpdatePostInput {
-  content: String
-  tags: [CreateTagInput!]
-  UserId: Int
-  id: Int!
+  loginUser(loginUserInput: LoginUserInput!): LoggedUserOutput!
+  createPost(createPostInput: CreatePostInput!): Post!
+  updatePost(updatePostInput: UpdatePostInput!): Post!
+  removePost(id: Int!): Post!
+  createTag(createTagInput: CreateTagInput!): Tag!
+  updateTag(updateTagInput: UpdateTagInput!): Tag!
+  removeTag(id: Int!): Tag!
 }
 
 input CreateUserInput {
@@ -92,4 +76,34 @@ input UpdateUserInput {
   password: String
   confirm: String
   id: Int!
+}
+
+input LoginUserInput {
+  """email of the user"""
+  email: String!
+
+  """password of the user"""
+  password: String!
+}
+
+input CreatePostInput {
+  content: String!
+  tags: [CreateTagInput!]!
+  UserId: Int!
+}
+
+input CreateTagInput {
+  tag: String!
+}
+
+input UpdatePostInput {
+  content: String
+  tags: [CreateTagInput!]
+  UserId: Int
+  id: Int!
+}
+
+input UpdateTagInput {
+  tag: String!
+  id: ID!
 }
