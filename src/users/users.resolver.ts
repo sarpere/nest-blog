@@ -3,9 +3,10 @@ import { UsersService } from './users.service';
 import { User } from './entities/user.entity';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
-import { HttpException, HttpStatus } from '@nestjs/common';
+import { HttpException, HttpStatus, UseGuards } from '@nestjs/common';
 import { LoggedUserOutput } from './dto/logged-user.output';
 import { LoginUserInput } from './dto/login-user.input';
+import { JwtAuthGuard } from 'src/common/auth/jwt-auth.guard';
 
 @Resolver(() => User)
 export class UsersResolver {
@@ -20,7 +21,7 @@ export class UsersResolver {
       );
     return this.usersService.create(createUserInput);
   }
-
+  @UseGuards(JwtAuthGuard)
   @Query(() => [User], { name: 'users' })
   findAll() {
     return this.usersService.findAll();
